@@ -1,4 +1,4 @@
-# Utiliser l'image Node
+# Image Node
 FROM node:20.6.1
 
 # Créer un répertoire de travail
@@ -10,7 +10,7 @@ COPY package*.json ./
 # Installer les dépendances
 RUN npm install
 
-# Copier le reste des fichiers de l'application dans le répertoire de travail
+# Copier le reste des fichiers de l'application
 COPY . /app
 
 # Exposer le port

@@ -1,9 +1,10 @@
 <template>
-    <div class="console">
-      <input type="text" v-model="command" placeholder="Entrez une commande" class="command-input">
-      <button @click="executeCommand" class="execute-button">Exécuter</button>
-      <div class="output command-output" v-html="commandOutput"></div>
-    </div>
+  <div class="console">
+    <input type="text" v-model="command" placeholder="Enter a command" class="command-input">
+    <button @click="executeCommand" class="execute-button">Execute</button>
+    <div class="output command-output" v-html="commandOutput"></div>
+    <div class="notification" :class="{ 'show-notification': showNotification }">{{ notificationMessage }}</div>
+  </div>
 </template>
   
 <script>
@@ -13,7 +14,9 @@
     data() {
       return {
         command: '',
-        commandOutput: ''
+        commandOutput: '',
+        showNotification: false,
+        notificationMessage: ''
       };
     },
     methods: {
@@ -24,7 +27,12 @@
             this.commandOutput = outputLines.join('<br>');
           })
           .catch(error => {
-            console.error('Erreur lors de la requête :', error);
+            console.error('Error executing command:', error);
+            this.showNotification = true;
+            this.notificationMessage = 'Command not found'
+            setTimeout(() => {
+              this.showNotification = false;
+            }, 2000);
           });
       }
     }
@@ -35,9 +43,6 @@
   .console {
     max-width: 400px;
     margin: 0 auto;
-    padding: 20px;
-    border: 2px solid #ccc;
-    border-radius: 5px;
   }
   
   .command-input {
@@ -55,6 +60,7 @@
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
+    width: 100%;
   }
   
   .execute-button:hover {
@@ -71,5 +77,27 @@
 
   .command-output {
     color: black;
-    }
+  }
+
+  .notification {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px;
+  margin-top: 1rem;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.show-notification {
+  opacity: 1;
+  visibility: visible;
+}
 </style>  
