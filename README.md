@@ -11,7 +11,7 @@ git clone https://github.com/NathanBogaert/Online-command-shell.git
 git checkout 8712b5391731b74798e8019208017ed136410153
 ```
 
-To obtain the app without RCE vulnerability;
+To obtain the app without RCE vulnerability:
 
 ```git
 git clone https://github.com/NathanBogaert/Online-command-shell.git
