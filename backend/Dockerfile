@@ -17,6 +17,3 @@ COPY --chown=node:node . .
 EXPOSE 3001
 
 CMD [ "npm", "run", "start:dev" ]
-
-# Pour lancer : docker build -t online-command-shell .
-# Puis : docker run -p 3000:3000 online-command-shell
