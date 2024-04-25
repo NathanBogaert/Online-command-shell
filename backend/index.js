@@ -12,6 +12,12 @@ app.get('/', (req, res) => {
 
 app.post('/command', (req, res) => {
     const command = req.body.command;
+    const allowedCommands = ['ls', 'cd', 'whoami', 'cat', 'curl', 'which', 'echo', 'grep']
+
+    if (!allowedCommands.includes(command.split(' ')[0])) {
+        res.status(400).send('Command not allowed');
+        return;
+    }
 
     exec(command, (error, stdout, stderr) => {
         if (error) {

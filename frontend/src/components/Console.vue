@@ -29,7 +29,7 @@
           .catch(error => {
             console.error('Error executing command:', error);
             this.showNotification = true;
-            this.notificationMessage = 'Command not found'
+            this.notificationMessage = error.response.data;
             setTimeout(() => {
               this.showNotification = false;
             }, 2000);
@@ -43,6 +43,16 @@
   .console {
     max-width: 400px;
     margin: 0 auto;
+    animation: slideInFromRight .5s ease;
+  }
+
+  @keyframes slideInFromRight {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
   }
   
   .command-input {
@@ -54,13 +64,14 @@
   }
   
   .execute-button {
-    background-color: #007bff;
+    background-color: hsla(160, 100%, 37%, 1);
     color: #fff;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
     width: 100%;
+    transition: .4s;
   }
   
   .execute-button:hover {
@@ -80,24 +91,24 @@
   }
 
   .notification {
-  position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 10px;
-  margin-top: 1rem;
-  background-color: red;
-  color: white;
-  font-weight: bold;
-  border-radius: 5px;
-  z-index: 999;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s, visibility 0.3s;
-}
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px;
+    margin-top: 1rem;
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+  }
 
-.show-notification {
-  opacity: 1;
-  visibility: visible;
-}
+  .show-notification {
+    opacity: 1;
+    visibility: visible;
+  }
 </style>  
