@@ -14,12 +14,17 @@ app.post('/command', (req, res) => {
     const command = req.body.command;
     const allowedCommands = ['ls', 'cd', 'whoami', 'cat', 'curl', 'which', 'echo', 'grep']
 
+    if (/([&|;]{1,2})/.test(command)) {
+        res.status(400).send('Command not allowed');
+        return;
+    }
+
     if (!allowedCommands.includes(command.split(' ')[0])) {
         res.status(400).send('Command not allowed');
         return;
     }
 
-    exec(command, (error, stdout, stderr) => {
+    exec(`${command}`, (error, stdout, stderr) => {
         if (error) {
             console.error(`exec error: ${error.message}`);
             res.status(500).send(error.message);
